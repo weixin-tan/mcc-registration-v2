@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id      String   @id @default(cuid())
+  email   String?  @unique
+  teacher Teacher?
+  student Student?
+}
+
+model Teacher {
+  user       User      @relation(fields: [userId], references: [id])
+  userId     String    @id
+  password   String?
+  schoolName String?
+  students   Student[]
+  payments   Payment[]
+}
+
+enum State {
+  JOHOR
+  KEDAH
+  KELANTAN
+  MALACCA
+  NEGERI_SEMBILAN
+  PAHANG
+  PENANG
+  PERAK
+  PERLIS
+  SABAH
+  SARAWAK
+  SELANGOR
+  TERENGGANU
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  NOT_DISCLOSED
+}
+
+model Student {
+  user       User    @relation(fields: [userId], references: [id])
+  userId     String  @id
+  fullName   String
+  schoolName String?
+  form       String?
+  gender     Gender?
+  state      State?
+
+  Teacher       Teacher @relation(fields: [teacherUserId], references: [userId])
+  teacherUserId String
+}
+
+model Payment {
+  id            String  @id @default(cuid())
+  teacher       Teacher @relation(fields: [teacherUserId], references: [userId])
+  teacherUserId String
+  amount        Float
+  url           String
+}
