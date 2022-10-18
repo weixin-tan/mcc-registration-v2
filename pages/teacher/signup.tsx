@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { TeacherSignUpForm } from "../../components/TeacherSignUpForm";
 
-export default function Home() {
+export default function TeacherSignUp() {
   return (
     <div>
       <Head>

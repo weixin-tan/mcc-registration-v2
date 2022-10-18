@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Router from "next/router";
+import { useContext } from "react";
+import { AuthContext } from "./AuthWrapper";
 
 interface Input {
   email: String;
@@ -8,13 +10,13 @@ interface Input {
 }
 
 export const TeacherSignInForm = () => {
+  const { setRole } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ reValidateMode: "onSubmit" });
   const onSubmit = async (data: Input) => {
-    console.log(data);
     await axios
       .post("/api/auth/teacher/signin", {
         email: data.email,
@@ -22,7 +24,8 @@ export const TeacherSignInForm = () => {
       })
       .then((resp) => {
         console.log(resp.data.message);
-        Router.push("/");
+        setRole(resp.data.role);
+        Router.push("/teacher");
       })
       .catch((err) => {
         console.log(err);

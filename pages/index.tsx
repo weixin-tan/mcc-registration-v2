@@ -1,6 +1,4 @@
 import Head from "next/head";
-import { TeacherSignUpForm } from "../components/TeacherSignUpForm";
-import Layout from "../components/Layout";
 
 export default function Home() {
   return (
@@ -10,9 +8,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <Layout title="MCC Registration V2">
-          <h1>This is the landing page</h1>
-        </Layout>
+        <h1>This is the landing page</h1>
       </main>
     </div>
   );

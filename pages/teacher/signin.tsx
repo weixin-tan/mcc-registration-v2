@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { TeacherSignInForm } from "../../components/TeacherSignInForm";
 
-export default function Home() {
+export default function TeacherSignIn() {
   return (
     <div>
       <Head>
